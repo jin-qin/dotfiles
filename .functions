@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Source this file from .bashrc
+
+ts() {
+    if [[ $# -eq 1 ]]; then
+        # If argument provided, try to switch to it or create it
+        tmux attach -t "$1" 2>/dev/null || tmux new -s "$1"
+    else
+        # If no argument, use fzf to select a session to attach to
+        # If no sessions exist, start a new one
+        if tmux ls >/dev/null 2>&1; then
+             session=$(tmux ls | fzf --height 40% --reverse | cut -d: -f1)
+             if [[ -n "$session" ]]; then
+                 tmux attach -t "$session"
+             fi
+        else
+             tmux new-session
+        fi
+    fi
+}
