@@ -12,6 +12,5 @@ if [ -z "${SCRIPT_DIR+x}" ]; then
     unset _CURRENT_FILE
 fi
 
-alias tmux="tmux -f ${SCRIPT_DIR}/.tmux.conf"
-alias docker='podman'
-alias ll='ls -al'
+mkdir -p "${HOME}/.config/tmux"
+ln -s "${SCRIPT_DIR}/.tmux.conf" "${HOME}/.config/tmux/tmux.conf"
